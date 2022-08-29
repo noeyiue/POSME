@@ -57,7 +57,6 @@ app.use('/', indexRouter)
 app.use('/auth', authRouter)
 
 
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
