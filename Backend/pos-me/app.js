@@ -22,8 +22,8 @@ const port = 3000
 
 
 
-// const dbUrl = 'mongodb://localhost:27017/pos-me'
-const dbUrl = 'mongodb+srv://dollar:siryossvaris@cluster0.pp3rv1f.mongodb.net/POS-ME'
+const dbUrl = 'mongodb://localhost:27017/pos-me'
+// const dbUrl = 'mongodb+srv://dollar:siryossvaris@cluster0.pp3rv1f.mongodb.net/POS-ME'
 
 mongoose.connect(dbUrl, { 
 	useNewUrlParser: true
