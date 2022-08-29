@@ -6,8 +6,17 @@ const router = express.Router()
 
 
 router.post('/register', (req, res, next) => {
-	const this_user = new User({username: req.body.username})
-	User.register(this_user, req.body.password, (err) => {
+	const { username, password, store_name, address, f_name, l_name, email, promptpay_number } = req.body;
+	const this_user = new User({
+		username: username,
+		store_name: store_name,
+		address: address,
+		f_name: f_name,
+		l_name: l_name,
+		email: email,
+		promptpay_number: promptpay_number
+	})
+	User.register(this_user, password, (err) => {
 		console.log('check!')
 		if (err) {
 			res.status(400).json(err)
