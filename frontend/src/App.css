@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home {
+  font-size: 50pt;
+  color: #eac43d;
+}
+
+.cashier {
+  font-size: 50pt;
+  color: #eac43d;
+}
+
+.report {
+  font-size: 50pt;
+  color: #eac43d;
+}
+
+.item {
+  font-size: 50pt;
+  color: #eac43d;
+}
+
+.user {
+  font-size: 50pt;
+  color: #eac43d;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+  background-color: #242e38;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

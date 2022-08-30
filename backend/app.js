@@ -9,6 +9,11 @@ const LocalStrategy = require('passport-local').Strategy
 
 // import schemas
 const User = require('./models/user')
+const Item = require('./models/item')
+const ItemOption = require('./models/item_option')
+const ItemType = require('./models/item_type')
+const Bill = require('./models/bill')
+const Quantity = require('./models/quantity')
 
 
 // import routes
@@ -23,6 +28,7 @@ const port = 3000
 
 
 const dbUrl = 'mongodb://localhost:27017/pos-me'
+// const dbUrl = 'mongodb+srv://dollar:siryossvaris@cluster0.pp3rv1f.mongodb.net/POS-ME'
 
 mongoose.connect(dbUrl, { 
 	useNewUrlParser: true
@@ -55,7 +61,6 @@ app.use(cors())
 
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
-
 
 
 app.listen(port, () => {

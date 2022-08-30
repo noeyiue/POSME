@@ -10,11 +10,14 @@ const ItemSchema = new Schema({
 	description: {type: String},
 	//ref
 	type: {type: Schema.Types.ObjectId, ref:'ItemType'},
-	option: {type: Schema.Types.ObjectId, ref:'ItemOption'},
-	discount: {type: Schema.Types.ObjectId, ref:'DiscountPrice'},
-	old: {type: Schema.Types.ObjectId, ref:'OldItem'}
-	user: {type: Schema.Types.ObjectId, ref:'User'},
-
+	option: {type: [Schema.Types.ObjectId], 
+		ref:'ItemOption'
+	},
+	discount: {
+		is_discount: {type: Boolean, default: false, required: true},
+		discount_price:  {type: Number},
+		end_date: {type: Date},
+	},
 })
 
 

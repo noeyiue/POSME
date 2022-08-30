@@ -12,6 +12,14 @@ const UserSchema = new Schema({
 	address: {type: String, required:true},
 	email: {type: String, required:true},
 	promptpay_number: {type: String, required:true},
+	item: {
+		type: [Schema.Types.ObjectId], 
+		ref: 'Item'
+	},
+	item_type: {
+		type: [Schema.Types.ObjectId], 
+		ref: 'ItemType'
+	}
 })
 
 
