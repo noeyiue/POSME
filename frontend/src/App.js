@@ -12,7 +12,7 @@ function App() {
   return (
       <Browser>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/store/cashier" element={<Cashier />} />
           <Route path="/store/items" element={<Items />} />
