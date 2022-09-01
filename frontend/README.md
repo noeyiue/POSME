@@ -2,10 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Library require
+## Library/Framework require
 1) quagga
 2) react-router-dom
 3) promptpay-qr
+4) Bootstrap5
+5) @material-ui/core
+
 ## Available Scripts
 
 In the project directory, you can run:
