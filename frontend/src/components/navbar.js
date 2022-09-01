@@ -3,7 +3,12 @@ import './navbar.css'
 
 function navbar() {
   return (
-    <div>navbar</div>
+    <nav>
+      <h1>Exceed Todo</h1>
+      <button className="btn-add-todo">
+        logout
+      </button>
+    </nav>
   )
 }
 
