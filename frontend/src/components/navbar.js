@@ -4,7 +4,7 @@ import './navbar.css'
 function navbar() {
   return (
     <nav>
-      <h1>Exceed Todo</h1>
+      <h1>Posme Navbar</h1>
       <button className="btn-add-todo">
         logout
       </button>
