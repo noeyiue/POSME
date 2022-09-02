@@ -14,9 +14,9 @@ const Title = () => {
 
     console.log(timeDelay)
     return (
-        <div>
+        <div className='Title'>
             <div className="fade-out">
-                <img src={logo} alt='title-logo' />
+                <img src={logo} alt='title-logo' className='logo' />
                 <div className='text_wel'>Welcome to Posme</div>
             </div>
             { timeDelay < 3 && <Navigate to ={'/login'} /> }

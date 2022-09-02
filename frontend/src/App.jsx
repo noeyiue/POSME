@@ -1,19 +1,16 @@
 import './App.css';
 import { BrowserRouter as Browser, Route, Routes } from "react-router-dom"
-import Home from './pages/Home.js'
-import Cashier from './pages/Cashier.js'
-import Users from './pages/Users.js'
-import Items from './pages/Items.js'
-import Reports from './pages/Report.js'
-import Login from './pages/Login.js'
-import Title from '../src/components/title.js'
-import Navbar from '../src/components/navbar.js'
-
+import Home from './pages/Home'
+import Cashier from './pages/Cashier'
+import Users from './pages/Users'
+import Items from './pages/Items'
+import Reports from './pages/Report'
+import Login from './pages/Login'
+import Title from './components/title'
 
 function App() {
   return (
       <Browser>
-        <Navbar />
         <Routes>
           <Route path="*" element={<Title />} />
           <Route path="/login" element={<Login />} />

@@ -5,7 +5,15 @@
   -o-animation: fadeOut ease 2.5s;
   -ms-animation: fadeOut ease 2.5s;
 }
-img {
+body {
+  background-color: #242e38;
+}
+.Title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo {
   flex-direction: column;
   display: flex;
   width: 50%;
