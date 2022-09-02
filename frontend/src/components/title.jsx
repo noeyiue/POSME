@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from 'react'
-import "./title.css"
+import "./component.css"
 import { Navigate } from 'react-router-dom'
 import logo from '../img/Posme_logo.png'
 
