@@ -19,6 +19,7 @@ const Quantity = require('./models/quantity')
 // import routes
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const itemsRouter = require('./routes/items');
 
 
 
@@ -61,6 +62,7 @@ app.use(cors())
 
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
+app.use('/items', itemsRouter)
 
 
 app.listen(port, () => {

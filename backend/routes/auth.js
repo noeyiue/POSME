@@ -42,7 +42,7 @@ router.post('/logout', (req, res) => {
 })
 
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()) {
 		res.status(400).json({'message': 'not logged-in'})
 	} else {
@@ -51,13 +51,17 @@ function isLoggedIn(req, res, next) {
 }
 
 
-router.get('/is_logged_in_check', (req, res, next) => {
-	isLoggedIn(req, res, next)
+router.get('/is_logged_in_check', isLoggedIn, (req, res, next) => {
 	res.status(200).json({'message': `logged-in as (${req.user.username})`})
+})
+
+router.get('/user_id', isLoggedIn, (req, res, next) => {
+	res.json({"user_id": `${req.user._id}`})
 })
 
 
 module.exports = router
+module.exports.isLoggedIn = isLoggedIn
 
 
 
