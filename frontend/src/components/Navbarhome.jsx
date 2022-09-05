@@ -21,15 +21,17 @@ function Navhome() {
                   width="132.2"
                   height="40"
                   className="d-inline-block align-top"
-                  />{' '}
+                />{' '}
               </div>
             </Navbar.Brand>
-            <Navbar.Brand href="/login">
+            <Navbar.Brand>
               <div className='logout'>
                 ร้าน {' '}{' '}{shopName} {' '}
-                <button type='button' class="btn btn-danger">
-                  logout
-                </button>{' '}
+                <a href="/login">
+                  <button type='button' class="btn btn-danger" href="/login">
+                    logout
+                  </button>{' '}
+                </a>
               </div>
             </Navbar.Brand>
           </Container>
@@ -51,12 +53,14 @@ function Navhome() {
                   />{' '}
               </div>
             </Navbar.Brand>
-            <Navbar.Brand href="/login">
+            <Navbar.Brand>
               <div className='logout'>
                 ร้าน {' '}{' '}{shopName} {' '}
-                <button type='button' class="btn btn-danger">
-                  logout
-                </button>{' '}
+                <a href="/login">
+                  <button type='button' class="btn btn-danger">
+                    logout
+                  </button>{' '}
+                </a>
               </div>
             </Navbar.Brand>
           </Container>
