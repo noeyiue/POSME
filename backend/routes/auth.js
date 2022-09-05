@@ -55,6 +55,7 @@ router.get('/is_logged_in_check', isLoggedIn, (req, res, next) => {
 	res.status(200).json({'message': `logged-in as (${req.user.username})`})
 })
 
+
 router.get('/user_id', isLoggedIn, (req, res, next) => {
 	res.json({"user_id": `${req.user._id}`})
 })

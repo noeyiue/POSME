@@ -8,7 +8,8 @@ const Item = require('../models/item')
 router.use(isLoggedIn)
 
 
-router.post('/add', (req, res, next) => {
+// add item
+router.post('/', (req, res, next) => {
 	const item = new Item({
 		barcode: req.body.barcode,
 		name: req.body.name,
@@ -32,6 +33,23 @@ router.post('/add', (req, res, next) => {
     	)
     	res.end()
 	})
+})
+
+
+// get item list
+router.get('/', (req, res, next) => {
+	User.findById(req.user._id, {_id:0, item: 1}, (err, id_list) => {
+		if (err) {
+			res.status(400).json(err)
+		}
+		Item.find().where('_id').in(id_list.item).exec((err, data) => {
+			if (err) {
+				res.status(400).json(err)
+			}
+			res.json(data)
+		})
+	})
+	
 })
 
 
