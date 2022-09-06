@@ -27,8 +27,8 @@ function Navhome() {
             <Navbar.Brand>
               <div className='logout'>
                 ร้าน {' '}{' '}{shopName} {' '}
-                <a href="/login">
-                  <button type='button' class="btn btn-danger" href="/login">
+                <a href="/">
+                  <button type='button' class="btn btn-danger" href="/">
                     logout
                   </button>{' '}
                 </a>
@@ -56,7 +56,7 @@ function Navhome() {
             <Navbar.Brand>
               <div className='logout'>
                 ร้าน {' '}{' '}{shopName} {' '}
-                <a href="/login">
+                <a href="/">
                   <button type='button' class="btn btn-danger">
                     logout
                   </button>{' '}

@@ -7,6 +7,7 @@ import Items from './pages/Items'
 import Reports from './pages/Report'
 import Login from './pages/Login'
 import Title from './components/title'
+import Register from './pages/Register'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="*" element={<Title />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/store/home" element={<Home />} />
           <Route path="/store/cashier" element={<Cashier />} />
           <Route path="/store/items" element={<Items />} />
