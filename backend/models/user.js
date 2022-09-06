@@ -19,6 +19,10 @@ const UserSchema = new Schema({
 	item_type: {
 		type: [Schema.Types.ObjectId], 
 		ref: 'ItemType'
+	},
+	bill: {
+		type: [Schema.Types.ObjectId], 
+		ref: 'Bill'
 	}
 })
 

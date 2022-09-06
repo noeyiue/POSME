@@ -5,6 +5,7 @@ const User = require('../models/user')
 const router = express.Router()
 
 
+// register
 router.post('/register', (req, res, next) => {
 	const { username, password, store_name, address, f_name, l_name, email, promptpay_number } = req.body;
 	const this_user = new User({
@@ -27,6 +28,7 @@ router.post('/register', (req, res, next) => {
 })
 
 
+// login
 router.post('/login', passport.authenticate('local'), (req, res) => {
 	res.status(200).json({'message': 'successfully login'})
 })
@@ -42,6 +44,7 @@ router.post('/logout', (req, res) => {
 })
 
 
+// middleware isLoggedIn func
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()) {
 		res.status(400).json({'message': 'not logged-in'})
@@ -51,13 +54,21 @@ function isLoggedIn (req, res, next) {
 }
 
 
+// is logged in check
 router.get('/is_logged_in_check', isLoggedIn, (req, res, next) => {
 	res.status(200).json({'message': `logged-in as (${req.user.username})`})
 })
 
 
+// get user id
 router.get('/user_id', isLoggedIn, (req, res, next) => {
 	res.json({"user_id": `${req.user._id}`})
+})
+
+
+// get all user info
+router.get('/user', isLoggedIn, (req, res, next) => {
+	res.json(req.user)
 })
 
 
