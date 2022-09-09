@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 
 	try {
 		// data = array of ItemType
-		const data = await ItemType.find().where('id').in(req.user.item_type).exec();
+		const data = await ItemType.find().where('_id').in(req.user.item_type).exec();
 
 		// type
 		let found = false;
@@ -37,14 +37,30 @@ router.post('/', async (req, res) => {
 			}
 		}
 		if (!found) {
-			const itemType = new ItemType({ type_name: type });
-			await itemType.save();
-			await User.findByIdAndUpdate(
-				req.user._id,
-				{ $push: { item_type: itemType._id } },
-				{ safe: true, upsert: true }
-			);
-			item.type = itemType._id
+			const allItemType = await ItemType.find();
+			let alreadyHave = false;
+			for (let i = 0; i < allItemType.length; i++) {
+				if (allItemType[i].type_name === type) {
+					alreadyHave = true;
+					await User.findByIdAndUpdate(
+						req.user._id,
+						{ $push: { item_type: allItemType[i]._id } },
+						{ safe: true, upsert: true }
+					);
+					item.type = allItemType[i]._id;
+					break;
+				}
+			}
+			if (!alreadyHave) {
+				const itemType = new ItemType({ type_name: type });
+				await User.findByIdAndUpdate(
+					req.user._id,
+					{ $push: { item_type: itemType._id } },
+					{ safe: true, upsert: true }
+				);
+				item.type = itemType._id
+				await itemType.save();
+			}
 		}
 
 		await item.save();
