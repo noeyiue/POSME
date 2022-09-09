@@ -11,7 +11,7 @@ router.use(isLoggedIn)
 
 
 // add item
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 	const { barcode, name, price, description, type, options, discount } = req.body;
 
 	const item = new Item({
@@ -19,121 +19,68 @@ router.post('/', (req, res) => {
 		name: name,
 		price: price,
 		description: description,
+		type: undefined,
 		discount: discount
 	});
 
-	// เช็ค ItemType ถ้ามีอยู่ใน collection แล้ว ให้ไปดึง _id ของ type นั้น, ถ้าไม่มีให้สร้าง type ใหม่
-	ItemType.find().where('_id').in(req.user.item_type).exec((err, itemTypeArray) => { // เช็คว่า user มี itemType อะไรบ้าง
-		if (err) {
-			res.status(400).json({1.: err});
-		}
+	try {
+		// data = array of ItemType
+		const data = await ItemType.find().where('id').in(req.user.item_type).exec();
+
+		// type
 		let found = false;
-		for (let i = 0; i < itemTypeArray.length; i++){
-			if (itemTypeArray[i].type_name === type) {
+		for (let i = 0; i < data.length; i++) {
+			if (data[i].type_name === type) {
 				found = true;
-				Item.findByIdAndUpdate(
-					item._id,
-					{ type: itemTypeArray[i]._id },
-					(err) => {
-						if (err) {
-							res.status(400).json({2.: err});
-						}
-					}
-				);
+				item.type = data[i]._id;
 				break;
 			}
 		}
-		if (!found) { // สร้าง type ใหม่
-			const itemType = new ItemType({
-				type_name: type
-			});
-			itemType.save((err) => {
-				if (err) {
-					res.status(400).json({3: err});
-				}
-				User.findByIdAndUpdate( // add new itemType in user
-					req.user._id,
-					{$push: {item_type: itemType._id}},
-					{safe: true, upsert: true},
-					(err) => {
-						if (err) {
-							res.status(400).json({4.: err});
-						}
-					}
+		if (!found) {
+			const itemType = new ItemType({ type_name: type });
+			await itemType.save();
+			await User.findByIdAndUpdate(
+				req.user._id,
+				{ $push: { item_type: itemType._id } },
+				{ safe: true, upsert: true }
+			);
+			item.type = itemType._id
+		}
+
+		await item.save();
+		await User.findByIdAndUpdate(
+			req.user._id,
+			{ $push: { item: item._id } },
+			{ safe: true, upsert: true }
+		);
+
+		// option
+		if (options !== undefined && options.length !== 0) {
+			const data = await ItemOption.find().where('option_name').in(options).exec();
+			const id = data.map(e => e._id);
+      id.forEach( async e => {
+        await Item.findByIdAndUpdate(
+          item._id,
+          { $push: { option: e } }
+        );
+      });
+
+			const name = data.map(e => e.option_name);
+			const notInDatabase = options.filter(e => !name.includes(e));
+			notInDatabase.forEach( async name => {
+				const itemOption = new ItemOption({ option_name: name });
+				await itemOption.save();
+
+				await Item.findByIdAndUpdate(
+					item._id,
+					{ $push: { option: itemOption._id } }
 				);
 			});
-			Item.findByIdAndUpdate( // set type in item
-				item._id,
-				{ type: itemType._id },
-				(err) => {
-					if (err) {
-						res.status(400).json({5.: err});
-					}
-				}
-			)
 		}
-	});
-
-	// option
-	if (options !== undefined && options.length !== 0) {
-		options.forEach(option => {
-			ItemOption.findOne({option_name: option}, (err, itemOpiton) => {
-				if (err) {
-					res.status(400).json({6.: err});
-				}
-				if (itemOpiton) {
-					Item.findByIdAndUpdate(
-						item._id,
-						{$push: {option: itemOpiton._id}},
-						{safe: true, upsert: true},
-						(err) => {
-							if (err) {
-								res.status(400).json({7.: err});
-							}
-						}
-					);
-				} else {
-					const newItemOption = new ItemOption({
-						option_name: option
-					});
-					newItemOption.save((err) => {
-						if (err) {
-							res.status(400).json({8.: err});
-						}
-						Item.findByIdAndUpdate(
-							item._id,
-							{$push: {option: newItemOption._id}},
-							{safe: true, upsert: true},
-							(err) => {
-								if (err) {
-									res.status(400).json({9.: err});
-								}
-							}
-						);
-					});
-				}
-			})
-		});
+		res.status(200).json({ message: 'add new item to database complete' });
+	} catch (err) {
+		res.status(400).json(err);
 	}
-
-	item.save((err) => {
-    if (err) {
-      res.status(400).json({10.: err});
-    } else {
-      User.findByIdAndUpdate(
-        req.user._id,
-        {$push: {item: item._id}},
-        {safe: true, upsert: true},
-        (err) => {
-          if (err) {
-            res.status(400).json({11.: err});
-          } else {
-            res.status(200).json({message: 'add new item to database complete!'});
-          }
-        }
-      );
-    }
-  });
 });
 
 
