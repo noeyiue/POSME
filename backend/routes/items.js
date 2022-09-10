@@ -14,55 +14,79 @@ router.use(isLoggedIn)
 router.post('/', async (req, res) => {
 	const { barcode, name, price, description, type, options, discount } = req.body;
 
-	const item = new Item({
+	const payload = {
 		barcode: barcode,
 		name: name,
 		price: price,
 		description: description,
 		type: undefined,
+		option: [],
 		discount: discount
-	});
+	};
 
 	try {
-		// data = array of ItemType
+		// หาทุกๆ ItemType ที่ User เก็บ _id ของ ItemType ไว้
 		const data = await ItemType.find().where('_id').in(req.user.item_type).exec();
 
 		// type
 		let found = false;
-		for (let i = 0; i < data.length; i++) {
+		for (let i = 0; i < data.length; i++) { // เช็คว่าเคยเก็บไหม
 			if (data[i].type_name === type) {
 				found = true;
-				item.type = data[i]._id;
+				payload.type = data[i]._id;
 				break;
 			}
 		}
-		if (!found) {
+		if (!found) { // ถ้า User ไม่เคยเก็บ ไปเช็คใน database ก่อนว่าในระบบเคยเก็บ ItemType นี้ไว้ไหม ถ้ามีก็เพิ่มให้ User เลย
 			const allItemType = await ItemType.find();
 			let alreadyHave = false;
+			let _id = undefined;
+
 			for (let i = 0; i < allItemType.length; i++) {
 				if (allItemType[i].type_name === type) {
 					alreadyHave = true;
-					await User.findByIdAndUpdate(
-						req.user._id,
-						{ $push: { item_type: allItemType[i]._id } },
-						{ safe: true, upsert: true }
-					);
-					item.type = allItemType[i]._id;
+					_id = allItemType[i]._id;
 					break;
 				}
 			}
-			if (!alreadyHave) {
+			if (!alreadyHave) { // ถ้าเช็คใน database แล้วก็ไม่เจอ ให้สร้าง ItemType ใหม่เลย
 				const itemType = new ItemType({ type_name: type });
-				await User.findByIdAndUpdate(
-					req.user._id,
-					{ $push: { item_type: itemType._id } },
-					{ safe: true, upsert: true }
-				);
-				item.type = itemType._id
+				_id = itemType._id;
 				await itemType.save();
 			}
+
+			await User.findByIdAndUpdate( //เพิ่ม _id ให้ User
+				req.user._id,
+				{ $push: { item_type: _id } },
+				{ safe: true, upsert: true }
+			);
+			payload.type = _id;
 		}
 
+		// option
+		if (options !== undefined && options.length !== 0) {
+			const data = await ItemOption.find().where('option_name').in(options).exec(); // หา ItemOption ที่มีอยู่ใน database
+			const id = data.map(e => e._id);
+      id.forEach( e => {
+				payload.option.push(e);
+      });
+
+			const optionName = data.map(e => e.option_name);
+			const notInDatabase = []; // คัดชื่อที่ไม่มีใน database
+      for (let i = 0; i < options.length; i++) {
+        let name = options[i];
+        if (!optionName.includes(name)) {
+          notInDatabase.push(name)
+        }
+      }
+      for (let i = 0; i < notInDatabase.length; i++) { // ถ้าไม่มีก็สร้างใหม่เลย
+        let itemOption = new ItemOption({ option_name: notInDatabase[i] });
+        payload.option.push(itemOption._id);
+        itemOption.save();
+      }
+		}
+
+		const item = new Item(payload);		
 		await item.save();
 		await User.findByIdAndUpdate(
 			req.user._id,
@@ -70,29 +94,6 @@ router.post('/', async (req, res) => {
 			{ safe: true, upsert: true }
 		);
 
-		// option
-		if (options !== undefined && options.length !== 0) {
-			const data = await ItemOption.find().where('option_name').in(options).exec();
-			const id = data.map(e => e._id);
-      id.forEach( async e => {
-        await Item.findByIdAndUpdate(
-          item._id,
-          { $push: { option: e } }
-        );
-      });
-
-			const name = data.map(e => e.option_name);
-			const notInDatabase = options.filter(e => !name.includes(e));
-			notInDatabase.forEach( async name => {
-				const itemOption = new ItemOption({ option_name: name });
-				await itemOption.save();
-
-				await Item.findByIdAndUpdate(
-					item._id,
-					{ $push: { option: itemOption._id } }
-				);
-			});
-		}
 		res.status(200).json({ message: 'add new item to database complete' });
 	} catch (err) {
 		res.status(400).json(err);
