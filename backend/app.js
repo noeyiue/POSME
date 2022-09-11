@@ -20,6 +20,7 @@ const Quantity = require('./models/quantity')
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const itemsRouter = require('./routes/items');
+const cashierRouter = require('./routes/cashier');
 
 
 
@@ -63,6 +64,7 @@ app.use(cors())
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
 app.use('/items', itemsRouter)
+app.use('/cashier', cashierRouter);
 
 
 app.listen(port, () => {
