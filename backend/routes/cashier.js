@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const { isLoggedIn }  = require('./auth');
 
@@ -6,8 +7,12 @@ router.use(isLoggedIn);
 
 // import model
 const Item = require('../models/item');
+const Quantity = require('../models/quantity');
+const Bill = require('../models/bill');
+const User = require('../models/user');
 
 
+// get item data from scan barcode
 router.get('/:barcode', async (req, res) => {
   try {
     const { barcode } = req.params;
@@ -28,6 +33,47 @@ router.get('/:barcode', async (req, res) => {
       price_each: price
     });
 
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+// create bill
+// ส่งมาเป็น array [{ id, name, price, total }, ...]
+router.post('/', async (req, res) => {
+  try {
+    const cart = req.body;
+
+    const payload = [];
+
+    for (let i = 0; i < cart.length; i++) {
+      let { id, name, price, total }= cart[i];
+      let _id = new mongoose.Types.ObjectId(id);
+      let quantity = new Quantity({
+        item_name: name,
+        price_each: price,
+        quantity: total,
+        item: _id
+      });
+      payload.push(quantity._id);
+
+      quantity.save();
+    }
+
+    const bill=  new Bill({ quantity: payload });
+    await bill.save();
+    
+    await User.findByIdAndUpdate(
+      req.user._id,
+      { $push: { bill: bill._id } },
+      { safe: true, upsert: true }
+    );
+
+    res.status(200).json({
+      message: 'create bill complete',
+      id: bill._id.toString()
+    });
+    
   } catch (err) {
     res.status(400).json(err);
   }
