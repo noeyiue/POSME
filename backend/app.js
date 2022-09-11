@@ -10,7 +10,6 @@ const LocalStrategy = require('passport-local').Strategy
 // import schemas
 const User = require('./models/user')
 const Item = require('./models/item')
-const ItemOption = require('./models/item_option')
 const ItemType = require('./models/item_type')
 const Bill = require('./models/bill')
 const Quantity = require('./models/quantity')

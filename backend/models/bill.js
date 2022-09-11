@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const BillSchema = new Schema({
 	time : { type: Date, default: Date.now },
 	payment_method: { type: String, required:true },
-	cash: { type: Date, default: 0 }
+	cash: { type: Date, default: 0 },
 	quantity: {
 		type: [Schema.Types.ObjectId], 
 		ref:'Quantity'
