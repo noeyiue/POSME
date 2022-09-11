@@ -79,4 +79,30 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/bill/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const _id = new mongoose.Types.ObjectId(id);
+
+    const bill = await Bill.findOne({ _id: _id }).populate('quantity');
+
+    let { quantity } = bill;
+
+    const result = [];
+    quantity.forEach(e => {
+      let { item_name, price_each, quantity } = e;
+      let obj = {
+        name: item_name,
+        amount: price_each*quantity,
+        total: quantity
+      }
+      result.push(obj);
+    });
+
+    res.status(200).json(result)
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = router;
