@@ -25,7 +25,7 @@ router.get('/:barcode', async (req, res) => {
     res.status(200).json({
       id: _id.toString(),
       name: name,
-      priceEach: price
+      price_each: price
     });
 
   } catch (err) {
