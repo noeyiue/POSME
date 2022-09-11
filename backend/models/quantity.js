@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 // Quantity Schema
 const QuantitySchema = new Schema({
-	item_name : {type: String, required: true},
-	price_each: {type: Number, required: true},
+	item_name: {type: String, required: true},
+	total_sales: {type: Number, required: true},
 	quantity: {type: Number, required: true},
 	item: {type: Schema.Types.ObjectId, ref:'Item'}
 })
