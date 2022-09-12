@@ -6,6 +6,9 @@ const session = require('express-session')
 const cors = require('cors')
 const LocalStrategy = require('passport-local').Strategy
 
+const fs = require("fs");
+const https = require("https");
+
 
 // import schemas
 const User = require('./models/user')
@@ -67,3 +70,18 @@ app.use('/items', itemsRouter)
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
+
+
+https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    },
+    app
+  )
+  .listen(2096, function () {
+    console.log(
+      "app listening on port 2096!"
+    );
+  });
