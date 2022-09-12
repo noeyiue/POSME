@@ -1,7 +1,7 @@
 import React from 'react'
 // import MediaQuery from 'react-responsive'
 import Navhome from '../components/Navbarhome'
-import './Page.css'
+import './Home.style.css'
 
 
 function Home() {
