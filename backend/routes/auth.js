@@ -30,7 +30,7 @@ router.post('/register', (req, res, next) => {
 
 // login
 router.post('/login', passport.authenticate('local'), (req, res) => {
-	res.status(200).json({'message': 'successfully login'})
+	res.status(200).json({'message': `successfully login as (${req.user.username})`})
 })
 
 

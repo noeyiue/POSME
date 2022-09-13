@@ -6,7 +6,7 @@ const session = require('express-session')
 const cors = require('cors')
 const LocalStrategy = require('passport-local').Strategy
 
-// https
+// import https
 const fs = require("fs");
 const https = require("https");
 
@@ -27,7 +27,8 @@ const itemsRouter = require('./routes/items');
 
 
 const app = express()
-const port = 3000
+const port = 2095
+const https_port = 2096
 
 
 
@@ -69,11 +70,13 @@ app.use('/auth', authRouter)
 app.use('/items', itemsRouter)
 
 
+// listen port http..
 app.listen(port, () => {
-  console.log(`listening on port ${port}`)
+  console.log(`[http ] app listening on port ${port}`)
 })
 
 
+// listen port https...
 https
   .createServer(
     {
@@ -82,8 +85,8 @@ https
     },
     app
   )
-  .listen(2096, function () {
+  .listen(https_port, function () {
     console.log(
-      "app listening on port 2096!"
+      `[https] app listening on port ${https_port}`
     );
   });
