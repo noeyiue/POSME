@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Browser, Route, Routes } from "react-router-dom"
+import { BrowserRouter as Browser, Route, Routes, Navigate } from "react-router-dom"
 import Home from './pages/Home'
 import Cashier from './pages/Cashier'
 import Users from './pages/Users'
@@ -7,13 +7,25 @@ import Items from './pages/Items'
 import Reports from './pages/Report'
 import Login from './pages/Login'
 import Title from './components/title'
+import Register from './pages/Register'
 
 function App() {
+  const status = localStorage.getItem('isLoggedIn')
+  console.log(status)
+  // if(!status) {
+  //   return (
+  //     <Browser>
+  //       <Routes>
+  //       </Routes>
+  //     </Browser>
+  //   )
+  // }
   return (
-      <Browser>
+    <Browser>
         <Routes>
-          <Route path="*" element={<Title />} />
+          <Route path="*" element={<Navigate to="/store/home"/>} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/store/home" element={<Home />} />
           <Route path="/store/cashier" element={<Cashier />} />
           <Route path="/store/items" element={<Items />} />
@@ -21,7 +33,6 @@ function App() {
           <Route path="/store/users" element={<Users />} />
         </Routes>
       </Browser>
-
   );
 }
 
