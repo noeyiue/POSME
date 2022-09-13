@@ -23,7 +23,7 @@ function App() {
   return (
     <Browser>
         <Routes>
-          <Route path="*" element={<Navigate to="/store/home"/>} />
+          <Route path="*" element={<Title />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/store/home" element={<Home />} />

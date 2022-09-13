@@ -40,7 +40,7 @@ function Navhome() {
         </Navbar>
       
       </MediaQuery>
-      {/* Mobile Device Size */}
+      {/* Mobile Device Size
       <MediaQuery maxWidth={767}>
         <Navbar bg="warning" variant="dark">
           <Container>
@@ -67,7 +67,7 @@ function Navhome() {
             </Navbar.Brand>
           </Container>
         </Navbar>
-      </MediaQuery>
+      </MediaQuery> */}
     </>
   );
 }
