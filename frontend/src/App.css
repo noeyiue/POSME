@@ -2,36 +2,4 @@
 
 * {
   font-family: 'Bai Jamjuree', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.home {
-  font-size: 50pt;
-  color: #eac43d;
-}
-
-.cashier {
-  font-size: 50pt;
-  color: #eac43d;
-}
-
-.report {
-  font-size: 50pt;
-  color: #eac43d;
-}
-
-.item {
-  font-size: 50pt;
-  color: #eac43d;
-}
-
-.user {
-  font-size: 50pt;
-  color: #eac43d;
-}
-
-body {
-  background-color: #242e38;
 }
