@@ -11,6 +11,7 @@ const UserSchema = new Schema({
 	store_name: {type: String, required:true},
 	address: {type: String, required:true},
 	email: {type: String, required:true},
+	tax_id: {type: String, required:true},
 	promptpay_number: {type: String, required:true},
 	item: {
 		type: [Schema.Types.ObjectId], 

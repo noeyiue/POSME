@@ -9,12 +9,7 @@ const ItemSchema = new Schema({
 	price: {type: Number, required:true},
 	description: {type: String},
 	//ref
-	type: {type: Schema.Types.ObjectId, ref:'ItemType'},
-	discount: {
-		is_discount: {type: Boolean, default: false, required: true},
-		discount_price:  {type: Number},
-		end_date: {type: Date},
-	},
+	type: {type: Schema.Types.ObjectId, ref:'ItemType'}
 })
 
 

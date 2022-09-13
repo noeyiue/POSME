@@ -5,7 +5,6 @@ const { isLoggedIn } = require('./auth')
 const User = require('../models/user')
 const Item = require('../models/item')
 const ItemType = require('../models/item_type')
-const ItemOption = require('../models/item_option')
 
 router.use(isLoggedIn)
 

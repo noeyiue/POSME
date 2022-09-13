@@ -47,7 +47,7 @@ router.post('/logout', (req, res) => {
 // middleware isLoggedIn func
 function isLoggedIn (req, res, next) {
 	if (!req.isAuthenticated()) {
-		res.status(400).json({'message': 'not logged-in'})
+		res.status(401).json({'message': 'not logged-in'})
 	} else {
 		return next()
 	}
