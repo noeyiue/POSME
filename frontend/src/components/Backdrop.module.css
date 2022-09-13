@@ -1,19 +1,19 @@
 .background {
   position: fixed;
   height: 130%;
-  width: 100%;
+  width: 90%;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
 .warning_box {
   position: absolute;
-  width: 70rem;
-  height: 40rem;
+  width: 70%;
+  height: 40%;
   background-color: #fff;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 10rem 0;
+  padding: 10% 0;
   border-radius: 5px;
 
   display: flex;
@@ -36,9 +36,23 @@
 }
 
 .text {
-  font-size: 2rem;
+  font-size: 150%;
+}
+
+.textWarning {
+  font-size: 200%;
+  font-weight: 500;
+}
+
+.textWarning:not(:last-child) {
+  margin-bottom: 5%;
 }
 
 .text:not(:last-child) {
-  margin-bottom: 2.4rem;
+  margin-bottom: 5%;
+}
+
+.errIcon {
+  width: 25%;
+  margin-bottom: 5%;
 }

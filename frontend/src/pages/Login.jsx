@@ -1,18 +1,25 @@
 import React from "react";
 import styles from "./Login.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate,Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Backdrop from "../components/Backdrop";
 import logo from "../image/logo_name.png"
 
-const Login = function (props) {
+function Login(props) {
   const [wrongLogin, setWrongLogin] = useState(false);
+  const [statusLogin, setStatusLogin] = useState(false);
   const usernameRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
 
   const closeOverlay = function () {
     setWrongLogin(false);
   };
+
+  const setLogginToF = function () {
+    setStatusLogin(false);
+  }
 
   const submitHandler = async function (e) {
     e.preventDefault();
@@ -32,10 +39,18 @@ const Login = function (props) {
       });
       const data = await response.json();
       console.log(data);
+      localStorage.setItem("isLoggedIn", true);
+      setStatusLogin(true);
     } catch (err) {
       setWrongLogin(true);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("isLoggedIn")){
+       return navigate("/store/home");
+    }
+  },[localStorage.getItem("isLoggedIn")]);
 
   return (
     <div className={styles.main}>
@@ -60,18 +75,13 @@ const Login = function (props) {
               placeholder="password"
               ref={passwordRef}
             />
-            <button className={`${styles.block} ${styles.login_btn}`}>
-              เข้าสู่ระบบ
-            </button>
+              <button className={`${styles.block} ${styles.login_btn}`}>
+                เข้าสู่ระบบ
+              </button>
           </form>
           {wrongLogin && <Backdrop close={closeOverlay} />}
-          {/* {wrongLogin && (
-            <ModalPopup
-              show={wrongLogin}
-              close={closeOverlay}
-              onHide={closeOverlay}
-            />
-          )} */}
+          {statusLogin && <Navigate to="/store/home" setLogginToF/>}
+
           <Link to="/register">
             <button className={`${styles.block} ${styles.register_btn}`}>
               ลงทะเบียน

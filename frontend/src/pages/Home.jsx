@@ -1,10 +1,15 @@
 import React from 'react'
+import {Navigate} from 'react-router-dom'
 // import MediaQuery from 'react-responsive'
 import Navhome from '../components/Navbarhome'
 import './Home.style.css'
 
 
 function Home() {
+  const status = localStorage.getItem('isLoggedIn');
+  if (!status) {
+    return <Navigate to="/login"/>
+  }
   return (
     <>
       <Navhome />
