@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate,Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Backdrop from "../components/Backdrop";
+import Backdrop from "../components/BackdropLogin";
 import logo from "../image/logo_name.png"
 
 function Login(props) {

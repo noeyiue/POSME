@@ -10,16 +10,6 @@ import Title from './components/title'
 import Register from './pages/Register'
 
 function App() {
-  const status = localStorage.getItem('isLoggedIn')
-  console.log(status)
-  // if(!status) {
-  //   return (
-  //     <Browser>
-  //       <Routes>
-  //       </Routes>
-  //     </Browser>
-  //   )
-  // }
   return (
     <Browser>
         <Routes>
