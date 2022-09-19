@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./Register.module.css";
 import { useNavigate, Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import logo from "../image/logoLarge.png";
+import Backdrop from "../components/BackdropRegister";
 
 const Register = function (props) {
+  const [wrongRegister, setWrongRegister] = useState(false);
   const navigate = useNavigate();
   const fnameref = useRef();
   const lnameref = useRef();
@@ -14,6 +16,11 @@ const Register = function (props) {
   const ppref = useRef();
   const usernameref = useRef();
   const passwordref = useRef();
+  const taxref = useRef();
+
+  const closeOverlay = function () {
+    setWrongRegister(false);
+  };
 
   const submitHandler = async function (e) {
     e.preventDefault();
@@ -26,6 +33,7 @@ const Register = function (props) {
     const pp_input = ppref.current.value;
     const username_input = usernameref.current.value;
     const password_input = passwordref.current.value;
+    const tax_input = taxref.current.value;
 
     try {
       const response = await fetch("https://posme.fun:2096/auth/register", {
@@ -41,6 +49,7 @@ const Register = function (props) {
           f_name: firstname_input,
           l_name: lastname_input,
           email: email_input,
+          tax_id: tax_input,
           promptpay_number: pp_input,
         }),
       });
@@ -50,7 +59,7 @@ const Register = function (props) {
         navigate("/login");
       }
     } catch (err) {
-      console.log(err);
+      setWrongRegister(true);
     }
   };
 
@@ -128,6 +137,19 @@ const Register = function (props) {
           </div>
 
           <div>
+            <label className={styles.label} for="taxid">
+              หมายเลขประจำตัวผู้เสียภาษี:{" "}
+            </label>
+            <input
+              className={styles.input2}
+              id="taxid"
+              type="text"
+              placeholder="taxid"
+              ref={taxref}
+            ></input>
+          </div>
+
+          <div>
             <label className={styles.label} for="promptpay">
               เลขพร้อมเพย์:{" "}
             </label>
@@ -187,6 +209,7 @@ const Register = function (props) {
         <input className='input2' type="text" placeholder='confirm password'></input> */}
             <button className={`${styles.block} ${styles.register_btn}`}>ลงทะเบียน</button>
         </form>
+        {wrongRegister && <Backdrop close={closeOverlay} />}
         <Link to="/login">
             <button className={`${styles.block} ${styles.login_btn}`}>
               กลับสู่หน้า login

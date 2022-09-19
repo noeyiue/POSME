@@ -2,7 +2,7 @@
     width: 30%;
     display: block;
     /* margin-left: 7.2rem; */
-    margin-bottom: 8%;
+    margin-bottom: 4%;
 }
 .center {
     display: flex;
@@ -70,8 +70,8 @@
     font-size: 1.6rem;
     margin-bottom: 1.6rem;
     border-radius: 100px;
-    width: 35rem;
-    height: 6.4rem;
+    width: 20rem;
+    height: 4rem;
   }
   
   .register_btn {
@@ -82,15 +82,15 @@
     font-size: 1.6rem;
     margin-bottom: 1.6rem;
     border-radius: 100px;
-    width: 35rem;
-    height: 6.4rem;
+    width: 20rem;
+    height: 4rem;
   }
 
   .main {
     /* max-width: 130rem; */
     margin: 0 auto;
     /* padding: 3.2rem 10.8rem; */
-    padding-top: 5%;
+    padding-top: 3%;
     background-color: #242e38;
     font-size: 120%;
     color: white;

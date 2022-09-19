@@ -4,7 +4,12 @@ import MediaQuery from 'react-responsive'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './component.css'
 import posmeLogoL from '../image/logoLarge.png'
-import posmeLogoS from '../image/logoMini.png'
+
+const logout = function() {
+  if (localStorage.getItem('isLoggedIn')) {
+    localStorage.removeItem('isLoggedIn')
+  }
+};
 
 function Navhome() {
   let shopName = "Cafe dot com"
@@ -30,7 +35,7 @@ function Navhome() {
               <div className='logout'>
                 ร้าน {' '}{' '}{shopName} {' '}
                 <a href="/">
-                  <button type='button' class="btn btn-danger" href="/">
+                  <button onClick={logout} type='button' class="btn btn-danger">
                     logout
                   </button>{' '}
                 </a>
