@@ -8,7 +8,7 @@ import './Home.style.css'
 function Home() {
   const status = localStorage.getItem('isLoggedIn');
   if (!status) {
-    return <Navigate to="/login"/>
+    return <Navigate to="/"/>
   }
   return (
     <>

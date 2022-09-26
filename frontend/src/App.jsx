@@ -10,20 +10,10 @@ import Title from './components/title'
 import Register from './pages/Register'
 
 function App() {
-  const status = localStorage.getItem('isLoggedIn')
-  console.log(status)
-  // if(!status) {
-  //   return (
-  //     <Browser>
-  //       <Routes>
-  //       </Routes>
-  //     </Browser>
-  //   )
-  // }
   return (
     <Browser>
         <Routes>
-          <Route path="*" element={<Navigate to="/store/home"/>} />
+          <Route path="*" element={<Title />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/store/home" element={<Home />} />
