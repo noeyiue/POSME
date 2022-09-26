@@ -58,8 +58,11 @@ const Register = function (props) {
       if (response.ok) {
         navigate("/login");
       }
+      else {
+        setWrongRegister(true);
+      }
     } catch (err) {
-      setWrongRegister(true);
+      console.log("ERR");
     }
   };
 

@@ -17,10 +17,6 @@ function Login(props) {
     setWrongLogin(false);
   };
 
-  const setLogginToF = function () {
-    setStatusLogin(false);
-  }
-
   const submitHandler = async function (e) {
     e.preventDefault();
 

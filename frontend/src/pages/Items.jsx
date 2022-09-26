@@ -1,8 +1,13 @@
 import React from 'react'
-import '../App.css'
+import {Navigate} from 'react-router-dom'
+import Navitem from '../components/NavbarItem'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Item.style.css'
 function Items() {
   return (
-    <div class="cashier">Items</div>
+    <>
+      <Navitem />
+    </>
   )
 }
 
