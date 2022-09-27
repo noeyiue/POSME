@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Register.module.css";
+import styles from "./styles/Register.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import logo from "../image/logoLarge.png";

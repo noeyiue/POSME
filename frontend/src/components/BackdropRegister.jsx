@@ -1,6 +1,6 @@
 import React from "react";
 // import { ImCross } from "react-icons/im";
-import styles from "./BackdropRegister.module.css";
+import styles from "./styles/BackdropRegister.module.css";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import errIcon from "../image/logo_err.png"

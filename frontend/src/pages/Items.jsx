@@ -2,7 +2,7 @@ import React from 'react'
 import {Navigate} from 'react-router-dom'
 import Navitem from '../components/NavbarItem'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Item.style.css'
+import './styles/Item.style.css'
 function Items() {
   return (
     <>
