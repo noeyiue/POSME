@@ -1,5 +1,6 @@
 import './App.css';
-import { BrowserRouter as Browser, Route, Routes, Navigate } from "react-router-dom"
+import React from 'react'
+import { BrowserRouter as Browser, Route, Routes } from "react-router-dom"
 import Home from './pages/Home'
 import Cashier from './pages/Cashier'
 import Users from './pages/Users'

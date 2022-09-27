@@ -1,3 +1,4 @@
+import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +9,7 @@ import { useEffect, useState } from "react";
 
 function Navhome() {
   const navigate = useNavigate();
+  const [storeData, setStoreData] = useState([])
   const submitHandler = async function (e) {
     e.preventDefault();
   
@@ -35,11 +37,11 @@ function Navhome() {
         credentials: 'include',
       });
       const userInfo = await userData.json();
-      console.log(userInfo);
-      return userInfo.store_name;
+      // console.log(userInfo);
+      setStoreData(userInfo)
     }
-    let storeData = fetchData();
-    console.log(storeData.value)
+    fetchData();
+    // console.log(storeData.store_name)
   },[])
   
   return (
@@ -59,7 +61,7 @@ function Navhome() {
           </Navbar.Brand>
           <Navbar.Brand>
             <div className='logout'>
-              {/* ร้าน {' '}{' '}{shopName} {' '} */}
+              ร้าน {' '}{' '}{storeData.store_name} {' '}
               <a>
                 <button onClick={submitHandler} type='button' class="btn btn-danger">
                   logout
