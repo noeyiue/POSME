@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './component.css'
+import './styles/component.css'
 import backIcon from '../image/backIcon.png'
 import { useNavigate } from "react-router-dom";
 

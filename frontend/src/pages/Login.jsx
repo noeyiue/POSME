@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Login.module.css";
+import styles from "./styles/Login.module.css";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate,Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -25,6 +25,7 @@ function Login(props) {
     try {
       const response = await fetch("https://posme.fun:2096/auth/login", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
