@@ -22,6 +22,8 @@ function App() {
           <Route path="/store/items" element={<Items />} />
           <Route path="/store/reports" element={<Reports />} />
           <Route path="/store/users" element={<Users />} />
+          <Route path="/store/items/additem" element={<AddItem />} />
+          <Route path="/store/items/itemdetail" element={<ItemDetail />} />
         </Routes>
       </Browser>
   );
