@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import ModalItem from '../components/ModalItem';
 
 function Items() { 
-  const [arrayItem,setArrayItem] = useState([])
-  const [openModal, setOpenModal] = useState(false)
+  const [arrayItem,setArrayItem] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [itemID, setItemId] = useState("");
 
   useEffect(() => {
     async function GetAllItem() {
@@ -41,6 +42,10 @@ function Items() {
       setArrayItem(data);
   } 
 
+  function PassName(itemid) {
+    setItemId(itemid);
+  }
+
   return (
     <div>
       <Navitem />
@@ -48,6 +53,7 @@ function Items() {
         <input className='search' type="text" placeholder="Search..." onChange={GetItem}/>
         {arrayItem.map(eachItem => 
             <button className='item_detail' onClick={() => {
+              PassName(eachItem._id);
               setOpenModal(true);
               }}>
               <p className='item_barcode'> Barcode : {eachItem.barcode} </p>
@@ -55,7 +61,7 @@ function Items() {
               <p className='item_price'> price : {eachItem.price} ฿</p> 
             </button> 
           )}
-          {openModal && <ModalItem closeModal={setOpenModal} />}
+          {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID}/>}
         </div>
         <Link to={`/store/items/additem`}>
           <img className='add_button' src={require('../image/plus.png')} alt='Add-Item'/>

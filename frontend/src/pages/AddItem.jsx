@@ -3,38 +3,44 @@ import Navitem from '../components/NavbarItem'
 import { useNavigate,Link } from 'react-router-dom';
 import { useRef } from 'react';
 import {Navigate} from 'react-router-dom';
-import Select from 'react-select';
 import "./styles/additem.css"
 import Modal from '../components/Modal';
 
 
 const AddItem = () => {
   const [arrayType,setArrayType] = useState([])
-  const [selectedType, setSelectedType] = useState()
   const [openModal, setOpenModal] = useState(false)
   const navigate = useNavigate();
   const barnum = useRef();
   const itemname = useRef();
   const itemprice = useRef();
   const itemdes = useRef();
+  let itemtypeid = null;
 
+  async function GetType() {
+    const response1 = await fetch("https://posme.fun:2096/types", {
+        method: "GET",
+        credentials: "include",
+      });
+      const alltype = await response1.json();
+      console.log(alltype);
+      setArrayType(alltype);
+  }
 
-  useEffect(() => {
-    async function GetType() {
-      const response1 = await fetch("https://posme.fun:2096/types", {
-          method: "GET",
-          credentials: "include",
-        });
-        const alltype = await response1.json();
-        console.log(alltype);
-        setArrayType(alltype);
-    }
+  useEffect(() => { 
     GetType()
   },[])
 
-  const handleChange = e => {
-    setSelectedType(e.target.value);
-    console.log(e.target.value);
+  const handleChange = async function(e) {
+    const typename = e.target.value;
+    const response_typeid = await fetch("https://posme.fun:2096/types/name"+typename, {
+      method: "GET",
+      credentials: "include",
+    });
+    const typeid = await response_typeid.json();
+    if (e.target.value !== "0") {
+      itemtypeid = typeid._id;
+    }
   }
 
   const submitHandler = async function (event) {
@@ -43,14 +49,7 @@ const AddItem = () => {
     const itemname_input = itemname.current.value;
     const itemprice_input = itemprice.current.value;
     const itemdes_input = itemdes.current.value;
-    const itemtype_input = selectedType;
-    console.log(itemtype_input)
 
-    // if (itemtype_input === "0") {
-    //   itemtype_input = null;
-    // }
-
-    // try {
       const response = await fetch("https://posme.fun:2096/items", {
         method: "POST",
         credentials: "include",
@@ -62,7 +61,7 @@ const AddItem = () => {
           name: itemname_input,
           price: itemprice_input,
           description: itemdes_input,
-          // type_name: itemtype_input,
+          type_id: itemtypeid,
         }),
       });
       const data = await response.text();
@@ -71,7 +70,7 @@ const AddItem = () => {
       if (response.ok) {
         navigate("/store/items/");
       }
-    // } 
+
   };
 
     return (
@@ -128,7 +127,8 @@ const AddItem = () => {
           onClick={() => {
             setOpenModal(true);
             }}>
-          <img className='add_btn_img' src={require('../image/plus_green.png')} alt='Add New Type'/>
+              เพิ่มประเภทสินค้า
+          {/* <img className='add_btn_img' src={require('../image/plus_green.png')} alt='Add New Type'/> */}
         </button>
         {openModal && <Modal closeModal={setOpenModal} />} 
     </>

@@ -9,6 +9,7 @@ import Reports from './pages/Report'
 import Login from './pages/Login'
 import Title from './components/title'
 import Register from './pages/Register'
+import AddItem from './pages/AddItem';
 
 function App() {
   return (
