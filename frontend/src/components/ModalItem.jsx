@@ -13,13 +13,13 @@ function ModalItem(props) {
   
   useEffect(() => {
     async function GetItemDetail() {
-      const response = await fetch("htttps://posme.fun:2096/items"+itemID, {
+      const response = await fetch("https://posme.fun:2096/items/"+itemID, {
         method: "GET",
         credentials: "include",
       });
       const alldata = await response.json();
       console.log(alldata);
-      if (alldata.description === "") {
+      if (alldata.description === "" || alldata.description === undefined) {
         alldata.description = "ไม่มีข้อมูล";
       }
       if (alldata.type_id === null) {
@@ -42,37 +42,36 @@ function ModalItem(props) {
   return (
     <div className='background'>
         <div className="modal_container">
-            <button onClick={() => {
+            <button className='close_btn' onClick={() => {
                   closeModal(false);
                   }}>
-                {/* <img src={require('../image/logo_err.png')} alt="close" /> */}
-                X
+                <img className='close_btn_img' src={require('../image/logo_err.png')} alt="close" />
             </button>
             <div className="title">
                 <h1>รายละเอียดสินค้า</h1>
             </div>
             <div className="modal_detail">
-              <p className="item_label">หมายเลขบาร์โค้ด</p> 
+              <p className="item_label">หมายเลขบาร์โค้ด:</p> 
               <p className="item_data">{arrayData.barcode}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ชื่อสินค้า</p> 
+              <p className="item_label">ชื่อสินค้า:</p> 
               <p className="item_data">{arrayData.name}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ราคาต่อชิ้น</p> 
+              <p className="item_label">ราคาต่อชิ้น:</p> 
               <p className="item_data">{arrayData.price}฿</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">รายละเอียดสินค้า</p> 
+              <p className="item_label">รายละเอียดสินค้า:</p> 
               <p className="item_data">{arrayData.description}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ประเภทสินค้า</p> 
+              <p className="item_label">ประเภทสินค้า:</p> 
               <p className="item_data">{arrayData.type_id}</p>
             </div>
-            <div>
-              <button onClick={() => {setOpenModal(true);}}>
+            <div className='btn_container'>
+              <button className='edit_btn' onClick={() => {setOpenModal(true);}}>
                 แก้ไขรายละเอียดสินค้า
               </button>
             </div>

@@ -33,7 +33,7 @@ const AddItem = () => {
 
   const handleChange = async function(e) {
     const typename = e.target.value;
-    const response_typeid = await fetch("https://posme.fun:2096/types/name"+typename, {
+    const response_typeid = await fetch("https://posme.fun:2096/types/name/"+typename, {
       method: "GET",
       credentials: "include",
     });
@@ -115,7 +115,7 @@ const AddItem = () => {
                 <option value="0">none</option>
               {arrayType.map(eachtype => 
                 <option value={eachtype.index}>
-                  {eachtype.type_name}
+                 {eachtype.type_name}
                 </option>
               )}
               </select>

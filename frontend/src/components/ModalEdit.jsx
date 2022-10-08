@@ -4,7 +4,7 @@ import { useState } from 'react';
 import './styles/modalitem.css'
 
 function ModalEdit(props) {
-    const [closeModal,arrayData] = props;
+    const {closeModal,arrayData} = props;
     const [arrayType, setArrayType] = useState([]);
 
     async function GetType() {
@@ -20,7 +20,7 @@ function ModalEdit(props) {
 
     useEffect(() => {
         GetType();
-    })
+    },[])
 
     async function DeleteItem() {
         const del_res = await fetch("https://posme.fun:2096/items/"+arrayData._id, {
@@ -36,32 +36,32 @@ function ModalEdit(props) {
   return (
     <div className='background'>
         <div className="modal_container">
-            <button onClick={() => {
-                closeModal(false);
-            }}>
-                X
+        <button className='close_btn' onClick={() => {
+                  closeModal(false);
+                  }}>
+                <img className='close_btn_img' src={require('../image/logo_err.png')} alt="close" />
             </button>
             <form action='#'>
                 <h1>แก้ไขรายละเอียดสินค้า</h1>
                 <div>
-                    <label>หมายเลขบาร์โค้ด</label>
+                    <label>หมายเลขบาร์โค้ด : </label>
                     <input placeholder='หมายเลขบาร์โค้ด' type="number" defaultValue={arrayData.barcode}></input>
                 </div>
                 <div>
-                    <label>ชื่อสินค้า</label>
+                    <label>ชื่อสินค้า : </label>
                     <input placeholder='ชื่อสินค้า' type="text" defaultValue={arrayData.name}></input>
                 </div>
                 <div>
-                    <label>ราคาต่อชิ้น</label>
+                    <label>ราคาต่อชิ้น : </label>
                     <input placeholder='ราคาต่อชิ้น' type="number" defaultValue={arrayData.price}></input>
                     <label>฿</label>
                 </div>
                 <div>
-                    <label>รายละเอียดสินค้า</label>
+                    <label>รายละเอียดสินค้า : </label>
                     <input placeholder='รายละเอียดสินค้า' type="text" defaultValue={arrayData.description}></input>
                 </div>
                 <div>
-                    <label>ประเภทสินค้า</label>
+                    <label>ประเภทสินค้า : </label>
                     <select>
                         <option value="0">{arrayData.type_id}</option>
                         {arrayType.map(eachtype =>
