@@ -53,6 +53,7 @@ function Items() {
         <input className='search' type="text" placeholder="Search..." onChange={GetItem}/>
         {arrayItem.map(eachItem => 
             <button className='item_detail' onClick={() => {
+              window.scrollTo(0,0);
               PassName(eachItem._id);
               setOpenModal(true);
               }}>

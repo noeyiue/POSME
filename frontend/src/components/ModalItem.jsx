@@ -51,23 +51,23 @@ function ModalItem(props) {
                 <h1>รายละเอียดสินค้า</h1>
             </div>
             <div className="modal_detail">
-              <p className="item_label">หมายเลขบาร์โค้ด:</p> 
+              <p className="item_label">หมายเลขบาร์โค้ด :</p> 
               <p className="item_data">{arrayData.barcode}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ชื่อสินค้า:</p> 
+              <p className="item_label">ชื่อสินค้า :</p> 
               <p className="item_data">{arrayData.name}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ราคาต่อชิ้น:</p> 
+              <p className="item_label">ราคาต่อชิ้น :</p> 
               <p className="item_data">{arrayData.price}฿</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">รายละเอียดสินค้า:</p> 
+              <p className="item_label">รายละเอียดสินค้า :</p> 
               <p className="item_data">{arrayData.description}</p>
             </div>
             <div className="modal_detail">
-              <p className="item_label">ประเภทสินค้า:</p> 
+              <p className="item_label">ประเภทสินค้า :</p> 
               <p className="item_data">{arrayData.type_id}</p>
             </div>
             <div className='btn_container'>

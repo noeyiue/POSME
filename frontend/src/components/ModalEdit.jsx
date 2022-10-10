@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import './styles/modalitem.css'
 
 function ModalEdit(props) {
     const {closeModal,arrayData} = props;
@@ -35,7 +34,7 @@ function ModalEdit(props) {
 
   return (
     <div className='background'>
-        <div className="modal_container">
+        <div className="modal_container2">
         <button className='close_btn' onClick={() => {
                   closeModal(false);
                   }}>
@@ -43,26 +42,26 @@ function ModalEdit(props) {
             </button>
             <form action='#'>
                 <h1>แก้ไขรายละเอียดสินค้า</h1>
-                <div>
+                <div className='edit_detail'>
                     <label>หมายเลขบาร์โค้ด : </label>
-                    <input placeholder='หมายเลขบาร์โค้ด' type="number" defaultValue={arrayData.barcode}></input>
+                    <input className='editinput' placeholder='หมายเลขบาร์โค้ด' type="number" defaultValue={arrayData.barcode}></input>
                 </div>
-                <div>
+                <div className='edit_detail'>
                     <label>ชื่อสินค้า : </label>
-                    <input placeholder='ชื่อสินค้า' type="text" defaultValue={arrayData.name}></input>
+                    <input className='editinput' placeholder='ชื่อสินค้า' type="text" defaultValue={arrayData.name}></input>
                 </div>
-                <div>
+                <div className='edit_detail'>
                     <label>ราคาต่อชิ้น : </label>
-                    <input placeholder='ราคาต่อชิ้น' type="number" defaultValue={arrayData.price}></input>
+                    <input className='editinput price_edit_input' placeholder='ราคาต่อชิ้น' type="number" defaultValue={arrayData.price}></input>
                     <label>฿</label>
                 </div>
-                <div>
+                <div className='edit_detail'>
                     <label>รายละเอียดสินค้า : </label>
-                    <input placeholder='รายละเอียดสินค้า' type="text" defaultValue={arrayData.description}></input>
+                    <input className='editinput' placeholder='รายละเอียดสินค้า' type="text" defaultValue={arrayData.description}></input>
                 </div>
-                <div>
+                <div className='edit_detail'>
                     <label>ประเภทสินค้า : </label>
-                    <select>
+                    <select className='editinput'>
                         <option value="0">{arrayData.type_id}</option>
                         {arrayType.map(eachtype =>
                             <option value={eachtype.index}>{eachtype.type_name}</option>
@@ -70,8 +69,8 @@ function ModalEdit(props) {
                     </select>
                 </div>
                 <div>
-                    <button>ยืนยันการแก้ไข</button>
-                    <button onClick={DeleteItem}>ลบสินค้า</button>
+                    <button className='accept_edit_btn'>ยืนยันการแก้ไข</button>
+                    <button className='delete_item_btn' onClick={DeleteItem}>ลบสินค้า</button>
                 </div>
             </form>
         </div>

@@ -5,19 +5,26 @@
 }
 
 .modal_container {
-    background-color: white;
+    background-color: #fff;
     margin: 30% auto 0;
     width: 500px;
     border-radius: 10px;
     border-color: black;
+    margin-top: 50%;
+}
+
+.modal_container2 {
+    background-color: #fff;
+    margin: 30% auto 0;
+    width: 500px;
+    border-radius: 10px;
+    border-color: black;
+    margin-top: 32%;
 }
 
 .background {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    right: 0%;
-    bottom: 0%;
+    position: fixed;
+    height: 150vh;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -47,7 +54,7 @@
     margin-bottom: 1rem;
     padding: 1rem;
     border: none;
-    background-color: #1f75fe;
+    background-color: #008CBA;
     color: white;
 }
 
@@ -65,3 +72,37 @@
 .close_btn_img {
     width: 50px;
 }
+
+.editinput {
+    margin-left: 0.5rem;
+}
+
+.price_edit_input {
+    width: 50px;
+    margin-right: 0.5rem;
+}
+
+.edit_detail {
+    margin-bottom: 0.75rem;
+}
+
+.accept_edit_btn {
+    border-radius: 1.75rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    margin-right: 0.25rem;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete_item_btn {
+    border-radius: 1.75rem;
+    margin-bottom: 1rem;
+    margin-left: 0.25rem;
+    padding: 1rem;
+    border: none;
+    background-color: #f44336;
+    color: white;
+}
+
