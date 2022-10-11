@@ -123,6 +123,7 @@ const AddItem = () => {
             </div>
           <button>บันทึก</button>
         </form>
+            <button onClick={() => console.log(arrayType)}>Arraytype</button>
         <button className='add_item_btn'
           onClick={() => {
             setOpenModal(true);
@@ -130,7 +131,10 @@ const AddItem = () => {
               เพิ่มประเภทสินค้า
           {/* <img className='add_btn_img' src={require('../image/plus_green.png')} alt='Add New Type'/> */}
         </button>
-        {openModal && <Modal closeModal={setOpenModal} />} 
+        {openModal && <Modal 
+          closeModal={setOpenModal}
+          setEditArrayType={setArrayType} 
+          />} 
     </>
   )
 }

@@ -5,7 +5,7 @@ import BackdropAddtype from './BackdropAddtype';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-function Modal({closeModal}) {
+function Modal(props) {
   const typeitem = useRef();
   const [arrayType,setArrayType] = useState([]);
   const [errAdd, setErrAdd] = useState(false);
@@ -29,13 +29,14 @@ function Modal({closeModal}) {
       setErrtext(response.status);
       console.log(errtext);
       if (response.ok) {
-        window.location.reload(false);
-        closeModal(false);
+        // window.location.reload(false);
+        props.closeModal(false);
       }
       else {
         setErrAdd(true);
         console.log(errAdd);
       }
+      GetAllType();
   }
 
   async function GetAllType() {
@@ -46,6 +47,7 @@ function Modal({closeModal}) {
     const alltype = await response2.json();
     console.log(alltype);
     setArrayType(alltype);
+    props.setEditArrayType(alltype);
   }
 
   useEffect(() => {
@@ -64,7 +66,7 @@ function Modal({closeModal}) {
     <div className='background'>
         <div className="modal_container">
             <button onClick={() => {
-                  closeModal(false);
+                  props.closeModal(false);
                   }}>
                 {/* <img src={require('../image/logo_err.png')} alt="close" /> */}
                 X
@@ -90,7 +92,7 @@ function Modal({closeModal}) {
                   >
                 </input>
                 <div className="submit">
-                    <button>บันทึก</button>
+                    <button onClick={() => GetAllType}>บันทึก</button>
                 </div>
             </form>
         </div>
