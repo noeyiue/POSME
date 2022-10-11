@@ -51,18 +51,18 @@ function Items() {
       <Navitem />
       <div className="mid">
         <input className='search' type="text" placeholder="Search..." onChange={GetItem}/>
-        {arrayItem.map(eachItem => 
-            <button className='item_detail' onClick={() => {
-              window.scrollTo(0,0);
-              PassName(eachItem._id);
-              setOpenModal(true);
+          {arrayItem.map(eachItem => 
+              <button className='item_detail' onClick={() => {
+                window.scrollTo(0,0);
+                PassName(eachItem._id);
+                setOpenModal(true);
               }}>
-              <p className='item_barcode'> Barcode : {eachItem.barcode} </p>
-              <h2 className='item_name'> {eachItem.name} </h2> 
-              <p className='item_price'> price : {eachItem.price} ฿</p> 
-            </button> 
-          )}
-          {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID}/>}
+                <p className='item_barcode'> Barcode : {eachItem.barcode} </p>
+                <h2 className='item_name'> {eachItem.name} </h2> 
+                <p className='item_price'> price : {eachItem.price} ฿</p> 
+              </button> 
+            )}
+            {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID}/>}
         </div>
         <Link to={`/store/items/additem`}>
           <img className='add_button' src={require('../image/plus.png')} alt='Add-Item'/>
