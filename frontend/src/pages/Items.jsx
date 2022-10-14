@@ -59,7 +59,7 @@ function Items() {
               }}>
                 <p className='item_barcode'> Barcode : {eachItem.barcode} </p>
                 <h2 className='item_name'> {eachItem.name} </h2> 
-                <p className='item_price'> price : {eachItem.price} ฿</p> 
+                <p className='item_price'> price : {eachItem.price.toFixed(2)} ฿</p> 
               </button> 
             )}
             {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID}/>}

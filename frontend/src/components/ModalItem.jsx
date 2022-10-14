@@ -48,7 +48,7 @@ function ModalItem(props) {
                 <img className='close_btn_img' src={require('../image/logo_err.png')} alt="close" />
             </button>
             <div className="title">
-                <h1>รายละเอียดสินค้า</h1>
+                <h1>{arrayData.name}</h1>
             </div>
             <div className="modal_detail">
               <p className="item_label">หมายเลขบาร์โค้ด :</p> 

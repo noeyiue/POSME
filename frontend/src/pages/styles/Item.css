@@ -21,12 +21,16 @@
 
 .item_detail {
     width: 400px;
+    color: black;
 }
 
 .item_barcode {
-    text-align: left
+    text-align: left;
+    margin-top: 10px;
+    color: black;
 }
 
 .item_price {
     text-align: right;
+    color: black;
 }
