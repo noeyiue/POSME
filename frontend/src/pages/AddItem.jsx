@@ -5,16 +5,23 @@ import { useRef } from 'react';
 import {Navigate} from 'react-router-dom';
 import "./styles/additem.css"
 import Modal from '../components/Modal';
-
+import CamModal from '../components/scanner/CamModal'
+import { Snackbar, Alert } from "@mui/material"
 
 const AddItem = () => {
   const [arrayType,setArrayType] = useState([])
   const [openModal, setOpenModal] = useState(false)
+  const [camModal, setCamModal] = useState(false)
   const navigate = useNavigate();
   const barnum = useRef();
   const itemname = useRef();
   const itemprice = useRef();
   const itemdes = useRef();
+  const [scanBarNum,setScanBarNum] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [alertColor, setAlertColor] = useState("error")
+  
+
   let itemtypeid = null;
 
   async function GetType() {
@@ -69,73 +76,126 @@ const AddItem = () => {
 
       if (response.ok) {
         navigate("/store/items/");
+        setErrorMessage("เพิ่มรายการสินค้าสำเร็จ")
+        setAlertColor("success")
+      } else {
+        setErrorMessage("เลขบาร์โค้ดซ้ำกับรายการที่มีอยู่แล้ว")
+        setAlertColor("error")
       }
 
   };
 
     return (
-    <>
+    <div>
         <Navitem />
         {/* <form action='#'> */}
-        <form action='#' onSubmit={submitHandler}>
-            <input 
+      <div className="additem_container">
+        <h1 className='Add_title'>เพิ่มรายการสินค้า</h1>
+        <form onSubmit={submitHandler}>
+
+          <div className='add_barnum_input'>
+            <label>หมายเลขบาร์โค้ด : </label>
+            <input
+              className='additem_input'
               id='barcode_num'
-              type='number'
+              type='tel'
               placeholder='Barcode Number'
               ref={barnum}
+              required
+              pattern = "[0-9]{13}"
+              defaultValue={scanBarNum}
             ></input>
 
-            {/* <Link to={`/BarcodeScanner`}> */}
-                {/* <img src={require('../image/barcode-scan.png')} alt='Previous'/> */}
-            {/* </Link> */}
-
+            <div type='button' className='scanner_btn'
+              onClick={() => {
+                setCamModal(true);
+              }}>
+                  <img className='scanner_btn_img' src={require('../image/barcode-scanner.png')}/>
+            </div>
+          </div>
+          <div>
+            <label>ชื่อสินค้า : </label>
             <input 
+              className='additem_input'
               id='item_name'
               type='text'
               placeholder='ชื่อสินค้า'
               ref={itemname}
-            ></input>
-
-            <input 
+              required
+              ></input>
+          </div>
+          <div>
+            <label>ราคาสินค้าต่อชิ้น : </label>
+            <input className='price_input additem_input'
               id='item_price'
               type='number'
-              placeholder='ราคาสินค้าต่อชิ้น'
+              step="0.25"
+              min = "0.00"
+              required
+              placeholder='ราคา'
               ref={itemprice}
-            ></input>
-
+              ></input>
+              <label>฿</label>
+          </div>
+          <div>
+            <label>รายละเอียดสินค้า : </label>
             <input 
+              className='additem_input'
               id='item_desc'
               type='text'
               placeholder='รายละเอียดสินค้า'
               ref={itemdes}
-            ></input>
+              ></input>
+          </div>
 
-            <div className='item_type'>
-              <select onChange={handleChange}>
-                <option value="0">none</option>
+          <div className='item_type'>
+            <label className='type_label'>ประเภทสินค้า : </label>
+            <select onChange={handleChange}>
+              <option value="0">none</option>
               {arrayType.map(eachtype => 
-                <option value={eachtype.index}>
-                 {eachtype.type_name}
-                </option>
+              <option value={eachtype.index}>
+                {eachtype.type_name}
+              </option>
               )}
-              </select>
-
-            </div>
-          <button>บันทึก</button>
-        </form>
-            <button onClick={() => console.log(arrayType)}>Arraytype</button>
-        <button className='add_item_btn'
-          onClick={() => {
-            setOpenModal(true);
+            </select>
+          </div>
+          
+          <div type="button" className='add_item_type_btn'
+            onClick={() => {
+              setOpenModal(true);
             }}>
-              เพิ่มประเภทสินค้า
-          {/* <img className='add_btn_img' src={require('../image/plus_green.png')} alt='Add New Type'/> */}
-        </button>
-        {openModal && <Modal 
-          closeModal={setOpenModal}
-          setEditArrayType={setArrayType} 
-          />} 
-    </>
+                จัดการประเภทสินค้า
+          </div>
+          <input type="submit" value="บันทึก" className='add_item_btn'></input>
+        </form>
+        <div className='btn_container'>
+
+          {openModal && <Modal 
+            closeModal={setOpenModal}
+            setEditArrayType={setArrayType} 
+            />} 
+
+          {/* Open camera button */}
+          {camModal && <CamModal 
+            closeModal={setCamModal}
+            setScanBarNum={setScanBarNum}
+            barnum={barnum}
+            />} 
+        </div>
+      </div>
+
+      {
+        errorMessage && 
+        <Snackbar  open={errorMessage} onClose={() => setErrorMessage(false)} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} autoHideDuration={5000} bodyStyle={{ height: 200, width: 200, flexGrow: 0 }}>
+          <Alert onClose={() => setErrorMessage(false)} severity={alertColor} sx={{ width: '100%' }}>
+            <div className="errormssg">
+            {errorMessage}
+            </div>
+          </Alert>
+        </Snackbar>
+      }
+
+    </div>
   )
 }
 
