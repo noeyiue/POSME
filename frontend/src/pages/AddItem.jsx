@@ -160,21 +160,21 @@ const AddItem = () => {
             </select>
           </div>
           
-          <div type="button" className='add_item_type_btn'
+          {/* <div type="button" className='add_item_type_btn'
             onClick={() => {
               setOpenModal(true);
             }}>
                 จัดการประเภทสินค้า
-          </div>
+          </div> */}
           <input type="submit" value="บันทึก" className='add_item_btn'></input>
         </form>
         <div className='btn_container'>
       </div>
 
-          {openModal && <Modal 
+          {/* {openModal && <Modal 
             closeModal={setOpenModal}
             setEditArrayType={setArrayType} 
-            />} 
+            />}  */}
 
           {/* Open camera button */}
           {camModal && <CamModal 

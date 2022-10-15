@@ -10,7 +10,7 @@
     border-radius: 8px;
     border-color: #eac43d;
     margin-top: 1rem;
-    width: 200px;
+    width: 300px;
 }
 
 .add_button {
@@ -37,8 +37,8 @@
 }
 
 .search_container {
-    display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .scanner_btn_Item {
@@ -47,4 +47,18 @@
     border: none;
     border-radius: 0.75rem;
     margin-left: 10px;
+}
+
+.select_type {
+    margin-top: 13px;
+    height: 30px;
+    min-width: 120px;
+}
+
+.add_item_type_btn {
+    margin-left: 5px;
+}
+
+.filter_label {
+    margin-top: 13px;
 }

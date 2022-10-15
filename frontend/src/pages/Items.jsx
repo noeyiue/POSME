@@ -7,9 +7,12 @@ import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import ModalItem from '../components/ModalItem';
 import CamModal from '../components/scanner/CamModal';
+import Modal from '../components/Modal';
+
 
 function Items() { 
   const [arrayItem,setArrayItem] = useState([]);
+  const [openModalType, setOpenModalType] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [itemID, setItemId] = useState("");
   const [camModal, setCamModal] = useState(false);
@@ -74,7 +77,7 @@ function Items() {
     <div>
       <Navitem />
       <div className="mid">
-        <div className="seach_container">
+        <div className="search_container">
           <input className='search' ref={barnum} type="text" placeholder="Search..." onChange={handleChange}/>
           <button className='scanner_btn_Item'  
                 onClick={() => {
@@ -83,16 +86,22 @@ function Items() {
                 <img className='scanner_btn_img' src={require('../image/barcode-scanner.png')}/>
           </button>
           <div className='item_type'>
-            <label className='filter_label'>Filter (By Item Type) : </label>
-            <select ref={filType} onChange={handleChange}>
-              <option value="0">-</option>
+            <label className='filter_label'>Item Type : </label>
+            <select className='select_type' ref={filType} onChange={handleChange}>
+              <option value="0">ทั้งหมด</option>
               {arrayType.map(eachtype => 
               <option value={eachtype.index}>
                 {eachtype.type_name}
               </option>
               )}
             </select>
-          </div>
+            <button className='add_item_type_btn'
+                onClick={() => {
+                  setOpenModalType(true);
+                }}>
+                    จัดการประเภทสินค้า
+            </button>
+              </div>
         </div>
           {arrayItem.map(eachItem => 
               <button className='item_detail' onClick={() => {
@@ -110,6 +119,10 @@ function Items() {
         <Link to={`/store/items/additem`}>
           <img className='add_button' src={require('../image/plus.png')} alt='Add-Item'/>
         </Link>
+        {openModalType && <Modal 
+            closeModal={setOpenModalType}
+            setEditArrayType={setArrayType} 
+            />} 
         
         {camModal && <CamModal 
             closeModal={setCamModal}
