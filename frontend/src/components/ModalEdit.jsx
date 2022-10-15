@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Snackbar, Alert } from "@mui/material"
 
 function ModalEdit(props) {
     const {closeModal,arrayData,setArrayData} = props;
@@ -13,6 +14,8 @@ function ModalEdit(props) {
     const navigate = useNavigate();
     const selecttype = useRef();
     let itemtypeid = arrayData.type_id;
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [alertColor, setAlertColor] = useState("error");
     
     async function GetType() {
         const response1 = await fetch("https://posme.fun:2096/types", {
@@ -94,6 +97,10 @@ function ModalEdit(props) {
             setArrayData(alldata);
             closeModal(false);
           }
+          else {
+            setErrorMessage("เลขบาร์โค้ดซ้ำกับรายการที่มีอยู่แล้ว")
+            setAlertColor("error")
+          }
         }
         else {
             if (selecttype.current.value === "none") {
@@ -134,6 +141,10 @@ function ModalEdit(props) {
             }
             setArrayData(alldata);
             closeModal(false);
+          }
+          else {
+            setErrorMessage("เลขบาร์โค้ดซ้ำกับรายการที่มีอยู่แล้ว")
+            setAlertColor("error")
           }
         }
       };
@@ -192,6 +203,16 @@ function ModalEdit(props) {
                 </div>
             </form>
         </div>
+        {
+        errorMessage && 
+        <Snackbar  open={errorMessage} onClose={() => setErrorMessage(false)} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} autoHideDuration={5000} bodyStyle={{ height: 200, width: 200, flexGrow: 0 }}>
+          <Alert onClose={() => setErrorMessage(false)} severity={alertColor} sx={{ width: '100%' }}>
+            <div className="errormssg">
+            {errorMessage}
+            </div>
+          </Alert>
+        </Snackbar>
+      }
     </div>
   )
 }

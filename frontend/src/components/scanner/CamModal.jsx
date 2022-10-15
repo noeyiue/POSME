@@ -6,7 +6,7 @@ import Result from './Result';
 import './styles/cammodal.css'
 
 function CamModal(props)  {
-    const {closeModal, setScanBarNum,barnum} = props;
+    const {closeModal, setScanBarNum,barnum,setArrayItem} = props;
     const [scanning, setScanning] = useState(false);
     const [results, setResults] = useState("");
     const scannerRef = useRef(null);
@@ -22,10 +22,26 @@ function CamModal(props)  {
             setResults(ean);
             setScanBarNum(ean);
             barnum.current.value = ean;
+            SearchFromBarNum(ean);
             closeModal(false);
         }
     }
 
+    async function SearchFromBarNum(ean) {
+        const response2 = await fetch("https://posme.fun:2096/items/filter", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          keyword : ean
+        }),
+      });
+      const data = await response2.json();
+      console.log(data);
+      setArrayItem(data);
+    }
 
 
 

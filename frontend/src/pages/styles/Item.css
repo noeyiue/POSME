@@ -10,6 +10,7 @@
     border-radius: 8px;
     border-color: #eac43d;
     margin-top: 1rem;
+    width: 200px;
 }
 
 .add_button {
@@ -33,4 +34,17 @@
 .item_price {
     text-align: right;
     color: black;
+}
+
+.search_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.scanner_btn_Item {
+    background-color: white;
+    width: fit-content;
+    border: none;
+    border-radius: 0.75rem;
+    margin-left: 10px;
 }

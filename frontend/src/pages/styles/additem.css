@@ -8,6 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 .additem_input {
@@ -72,4 +73,9 @@
     border: none;
     background-color: #4CAF50;
     color: white;
+}
+
+.filter_label {
+    color: white;
+    margin-right: 5px;
 }

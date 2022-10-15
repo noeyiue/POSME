@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 // import {Navigate} from 'react-router-dom'
 import Navitem from '../components/NavbarItem'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,11 +6,17 @@ import './styles/Item.css'
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import ModalItem from '../components/ModalItem';
+import CamModal from '../components/scanner/CamModal';
 
 function Items() { 
   const [arrayItem,setArrayItem] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [itemID, setItemId] = useState("");
+  const [camModal, setCamModal] = useState(false);
+  const barnum = useRef();
+  const [scanBarNum,setScanBarNum] = useState("");
+  const [arrayType,setArrayType] = useState([]);
+  const filType = useRef();
 
   useEffect(() => {
     async function GetAllItem() {
@@ -22,35 +28,72 @@ function Items() {
         console.log(alldata);
         setArrayItem(alldata);
     }
-    GetAllItem()
-  },[])
-
-
-  async function GetItem(e) {
-    const response2 = await fetch("https://posme.fun:2096/items/filter", {
-        method: "POST",
+    GetAllItem();
+    async function GetAllType() {
+      const response2 = await fetch("https://posme.fun:2096/types", {
+        method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          keyword : e.target.value
-        }),
       });
-      const data = await response2.json();
-      console.log(data);
-      setArrayItem(data);
-  } 
+      const alltype = await response2.json();
+      console.log(alltype);
+      setArrayType(alltype);
+    }
+    GetAllType();
+  },[])
 
   function PassName(itemid) {
     setItemId(itemid);
+  }
+
+  const handleChange = async function () {
+    console.log(barnum.current.value);
+    console.log(filType.current.value);
+    const response_typeid = await fetch("https://posme.fun:2096/types/name/"+filType.current.value, {
+      method: "GET",
+      credentials: "include",
+    });
+    const typeid = await response_typeid.json();
+    console.log(typeid);
+    const response2 = await fetch("https://posme.fun:2096/items/filter", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              keyword : barnum.current.value,
+              type_id : typeid,
+            }),
+          });
+          const data = await response2.json();
+          console.log(data);
+          setArrayItem(data);
   }
 
   return (
     <div>
       <Navitem />
       <div className="mid">
-        <input className='search' type="text" placeholder="Search..." onChange={GetItem}/>
+        <div className="seach_container">
+          <input className='search' ref={barnum} type="text" placeholder="Search..." onChange={handleChange}/>
+          <button className='scanner_btn_Item'  
+                onClick={() => {
+                  setCamModal(true);
+                }}>
+                <img className='scanner_btn_img' src={require('../image/barcode-scanner.png')}/>
+          </button>
+          <div className='item_type'>
+            <label className='filter_label'>Filter (By Item Type) : </label>
+            <select ref={filType} onChange={handleChange}>
+              <option value="0">-</option>
+              {arrayType.map(eachtype => 
+              <option value={eachtype.index}>
+                {eachtype.type_name}
+              </option>
+              )}
+            </select>
+          </div>
+        </div>
           {arrayItem.map(eachItem => 
               <button className='item_detail' onClick={() => {
                 window.scrollTo(0,0);
@@ -67,6 +110,13 @@ function Items() {
         <Link to={`/store/items/additem`}>
           <img className='add_button' src={require('../image/plus.png')} alt='Add-Item'/>
         </Link>
+        
+        {camModal && <CamModal 
+            closeModal={setCamModal}
+            setScanBarNum={setScanBarNum}
+            barnum={barnum}
+            setArrayItem={setArrayItem}
+            />} 
     </div>
   );
 }

@@ -86,7 +86,7 @@ const AddItem = () => {
   };
 
     return (
-    <div>
+    <>
         <Navitem />
         {/* <form action='#'> */}
       <div className="additem_container">
@@ -169,6 +169,7 @@ const AddItem = () => {
           <input type="submit" value="บันทึก" className='add_item_btn'></input>
         </form>
         <div className='btn_container'>
+      </div>
 
           {openModal && <Modal 
             closeModal={setOpenModal}
@@ -182,7 +183,6 @@ const AddItem = () => {
             barnum={barnum}
             />} 
         </div>
-      </div>
 
       {
         errorMessage && 
@@ -195,7 +195,7 @@ const AddItem = () => {
         </Snackbar>
       }
 
-    </div>
+    </>
   )
 }
 
