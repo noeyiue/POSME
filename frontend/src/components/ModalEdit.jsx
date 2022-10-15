@@ -199,7 +199,7 @@ function ModalEdit(props) {
                 </div>
                 <div>
                     <input type='submit' className='accept_edit_btn' value="ยืนยันการแก้ไข" />
-                    <button className='delete_item_btn' onClick={DeleteItem}>ลบสินค้า</button>
+                    <input type='button' className='delete_item_btn' onClick={DeleteItem} value="ลบสินค้า"/>
                 </div>
             </form>
         </div>
