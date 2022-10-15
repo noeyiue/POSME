@@ -6,10 +6,15 @@ import ModalEdit from './ModalEdit';
 import "./styles/modalitem.css"
 
 function ModalItem(props) {
-  const {closeModal,itemID} = props;
+  const {closeModal,itemID,setArrayItem} = props;
   const [arrayData,setArrayData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [editItemID, setEditItemID] = useState("");
+
+  console.log(arrayData.type_id);
+  if (arrayData.type_id === null) {
+    arrayData.type_id = "none";
+  }
   
   useEffect(() => {
     async function GetItemDetail() {
@@ -39,10 +44,20 @@ function ModalItem(props) {
     GetItemDetail();
   },[])
 
+  async function handleCloseModal()  {
+        const response3 = await fetch("https://posme.fun:2096/items", {
+          method: "GET",
+          credentials: "include",
+        });
+        const alldata = await response3.json();
+        setArrayItem(alldata);
+  }
+
   return (
     <div className='background'>
         <div className="modal_container">
             <button className='close_btn' onClick={() => {
+                  handleCloseModal();
                   closeModal(false);
                   }}>
                 <img className='close_btn_img' src={require('../image/logo_err.png')} alt="close" />
@@ -76,7 +91,7 @@ function ModalItem(props) {
               </button>
             </div>
         </div>
-        {openModal && <ModalEdit closeModal={setOpenModal} arrayData={arrayData}/>}
+        {openModal && <ModalEdit closeModal={setOpenModal} arrayData={arrayData} setArrayData={setArrayData}/>}
     </div>
   )
 }

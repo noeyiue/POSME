@@ -62,7 +62,7 @@ function Items() {
                 <p className='item_price'> price : {eachItem.price.toFixed(2)} ฿</p> 
               </button> 
             )}
-            {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID}/>}
+            {openModal && <ModalItem closeModal={setOpenModal} itemID={itemID} setArrayItem={setArrayItem}/>}
         </div>
         <Link to={`/store/items/additem`}>
           <img className='add_button' src={require('../image/plus.png')} alt='Add-Item'/>

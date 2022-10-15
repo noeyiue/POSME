@@ -18,8 +18,8 @@ const AddItem = () => {
   const itemprice = useRef();
   const itemdes = useRef();
   const [scanBarNum,setScanBarNum] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [alertColor, setAlertColor] = useState("error")
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [alertColor, setAlertColor] = useState("error");
   
 
   let itemtypeid = null;
